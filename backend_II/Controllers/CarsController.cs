@@ -23,7 +23,7 @@ namespace backend_II.Controllers
             var cars = await _carsService.GetAllAsync();
             return Ok(cars);
         }
-
+        [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Car>> GetById(string id)
         {
             var car = await _carsService.GetByIdAsync(id);
@@ -61,7 +61,7 @@ namespace backend_II.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
             var car = await _carsService.GetByIdAsync(id);

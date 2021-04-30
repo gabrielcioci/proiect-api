@@ -16,6 +16,8 @@ namespace backend_II.Models
         public int an { get; set; }
         [Required(ErrorMessage = "Cost is required")]
         public int cost { get; set; }
+        [Required(ErrorMessage = "Reparat is required")]
+        public Boolean reparat { get; set; }
         public string detalii { get; set; }
     }
 }

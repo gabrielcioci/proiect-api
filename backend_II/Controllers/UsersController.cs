@@ -23,7 +23,7 @@ namespace backend_II.Controllers
             var users = await _usersService.GetAllAsync();
             return Ok(users);
         }
-
+        [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> GetById(string id)
         {
             var user = await _usersService.GetByIdAsync(id);
@@ -61,7 +61,7 @@ namespace backend_II.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
             var user = await _usersService.GetByIdAsync(id);

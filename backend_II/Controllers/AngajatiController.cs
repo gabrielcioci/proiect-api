@@ -23,7 +23,7 @@ namespace backend_II.Controllers
             var angajati = await _angajatiService.GetAllAsync();
             return Ok(angajati);
         }
-
+        [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Angajat>> GetById(string id)
         {
             var angajat = await _angajatiService.GetByIdAsync(id);
@@ -61,7 +61,7 @@ namespace backend_II.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
             var angajat = await _angajatiService.GetByIdAsync(id);

@@ -23,17 +23,16 @@ namespace backend_II.Controllers
             var reparatii = await _reparatiiService.GetAllAsync();
             return Ok(reparatii);
         }
-
+        [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Reparatie>> GetById(string id)
         {
-            var reparatii = await _reparatiiService.GetByIdAsync(id);
-            if (reparatii == null)
+            var reparatie = await _reparatiiService.GetByIdAsync(id);
+            if (reparatie == null)
             {
                 return NotFound();
             }
-            return Ok(reparatii);
+            return Ok(reparatie);
         }
-
         [HttpPost]
         public async Task<IActionResult> Create(Reparatie reparatie)
         {
@@ -61,7 +60,7 @@ namespace backend_II.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
             var reparatie = await _reparatiiService.GetByIdAsync(id);

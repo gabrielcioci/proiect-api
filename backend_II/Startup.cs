@@ -34,6 +34,8 @@ namespace backend_II
 
             services.AddScoped<CarsService>();
             services.AddScoped<UserService>();
+            services.AddScoped<AngajatiService>();
+            services.AddScoped<ReparatiiService>();
 
             services.AddControllers();
         }

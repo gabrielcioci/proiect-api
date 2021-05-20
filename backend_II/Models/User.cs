@@ -15,7 +15,7 @@ namespace backend_II.Models
         [Required(ErrorMessage = "Prenume is required")]
         public string prenume { get; set; }
         [Required(ErrorMessage = "CNP is required")]
-        public string CNP { get; set; }
+        public string cnp { get; set; }
         [Required(ErrorMessage = "Telefon is required")]
         public string telefon { get; set; }
         [Required(ErrorMessage = "Post is required")]

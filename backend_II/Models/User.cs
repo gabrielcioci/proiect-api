@@ -18,5 +18,11 @@ namespace backend_II.Models
         public string CNP { get; set; }
         [Required(ErrorMessage = "Telefon is required")]
         public string telefon { get; set; }
+        [Required(ErrorMessage = "Post is required")]
+        public string post { get; set; }
+        [Required(ErrorMessage = "Email is required")]
+        public string email { get; set; }
+        [Required(ErrorMessage = "Password is required")]
+        public string password { get; set; }
     }
 }

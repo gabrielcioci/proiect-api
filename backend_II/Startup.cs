@@ -33,8 +33,8 @@ namespace backend_II
             services.AddSingleton<ISamsariiDatabaseSettings>(provider => provider.GetRequiredService<IOptions<SamsariiDatabaseSettings>>().Value);
 
             services.AddScoped<CarsService>();
-            services.AddScoped<UserService>();
-            services.AddScoped<AngajatiService>();
+            services.AddScoped<UsersService>();
+            services.AddScoped<ClientiService>();
             services.AddScoped<ReparatiiService>();
 
             services.AddControllers();

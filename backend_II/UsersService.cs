@@ -6,14 +6,14 @@ using MongoDB.Driver;
 
 namespace backend_II
 {
-    public class UserService
+    public class UsersService
     {
         private readonly IMongoCollection<User> _users;
 
-        public UserService(ISamsariiDatabaseSettings settings)
+        public UsersService(ISamsariiDatabaseSettings settings)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
+            var user = new MongoClient(settings.ConnectionString);
+            var database = user.GetDatabase(settings.DatabaseName);
             _users = database.GetCollection<User>(settings.UsersCollectionName);
         }
 

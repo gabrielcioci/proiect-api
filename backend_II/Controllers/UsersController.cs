@@ -10,15 +10,15 @@ namespace backend_II.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UserService _usersService;
+        private readonly UsersService _usersService;
 
-        public UsersController(UserService service)
+        public UsersController(UsersService service)
         {
             _usersService = service;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Car>>> GetAll()
+        public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
             var users = await _usersService.GetAllAsync();
             return Ok(users);
@@ -45,7 +45,7 @@ namespace backend_II.Controllers
             return Ok(user);
         }
 
-        [HttpPut]
+        [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, User updatedUser)
         {
             if (!ModelState.IsValid)

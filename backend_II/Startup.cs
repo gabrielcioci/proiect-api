@@ -27,6 +27,7 @@ namespace backend_II
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.Configure<SamsariiDatabaseSettings>(
                 Configuration.GetSection(nameof(SamsariiDatabaseSettings)));
 
@@ -47,6 +48,11 @@ namespace backend_II
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            // Make sure you call this before calling app.UseMvc()
+            app.UseCors(
+                options => options.WithOrigins("*").AllowAnyMethod()
+            );
 
             app.UseHttpsRedirection();
 

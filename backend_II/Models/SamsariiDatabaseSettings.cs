@@ -3,7 +3,6 @@ namespace backend_II.Models
 {
     public class SamsariiDatabaseSettings : ISamsariiDatabaseSettings
     {
-        public string CarsCollectionName { get; set; }
         public string UsersCollectionName { get; set; }
         public string ReparatiiCollectionName { get; set; }
         public string ClientiCollectionName { get; set; }
@@ -13,7 +12,6 @@ namespace backend_II.Models
 
     public interface ISamsariiDatabaseSettings
     {
-        string CarsCollectionName { get; set; }
         string UsersCollectionName { get; set; }
         string ReparatiiCollectionName { get; set; }
         string ClientiCollectionName { get; set; }

@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend_II.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace backend_II.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReparatiiController : ControllerBase
@@ -23,6 +25,8 @@ namespace backend_II.Controllers
             var reparatii = await _reparatiiService.GetAllAsync();
             return Ok(reparatii);
         }
+
+        [AllowAnonymous]
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Reparatie>> GetById(string id)
         {

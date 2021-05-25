@@ -12,23 +12,23 @@ namespace backend_II.Controllers
     [ApiController]
     public class ClientiController : ControllerBase
     {
-        private readonly ClientiService _clientiService;
+        private readonly ClientiService clientiService;
 
         public ClientiController(ClientiService service)
         {
-            _clientiService = service;
+            clientiService = service;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Client>>> GetAll()
         {
-            var clienti = await _clientiService.GetAllAsync();
+            var clienti = await clientiService.GetAllAsync();
             return Ok(clienti);
         }
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Client>> GetById(string id)
         {
-            var client = await _clientiService.GetByIdAsync(id);
+            var client = await clientiService.GetByIdAsync(id);
             if (client == null)
             {
                 return NotFound();
@@ -43,7 +43,7 @@ namespace backend_II.Controllers
             {
                 return BadRequest();
             }
-            await _clientiService.CreateAsync(client);
+            await clientiService.CreateAsync(client);
             return Ok(client);
         }
 
@@ -54,24 +54,24 @@ namespace backend_II.Controllers
             {
                 return BadRequest();
             }
-            var queriedClient = await _clientiService.GetByIdAsync(id);
+            var queriedClient = await clientiService.GetByIdAsync(id);
             if (queriedClient == null)
             {
                 return NotFound();
             }
-            await _clientiService.UpdateAsync(id, updatedClient);
+            await clientiService.UpdateAsync(id, updatedClient);
             return NoContent();
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var client = await _clientiService.GetByIdAsync(id);
+            var client = await clientiService.GetByIdAsync(id);
             if (client == null)
             {
                 return NotFound();
             }
-            await _clientiService.DeleteAsync(id);
+            await clientiService.DeleteAsync(id);
             return NoContent();
         }
     }

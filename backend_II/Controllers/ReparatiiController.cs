@@ -12,17 +12,17 @@ namespace backend_II.Controllers
     [ApiController]
     public class ReparatiiController : ControllerBase
     {
-        private readonly ReparatiiService _reparatiiService;
+        private readonly ReparatiiService reparatiiService;
 
         public ReparatiiController(ReparatiiService service)
         {
-            _reparatiiService = service;
+            reparatiiService = service;
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Reparatie>>> GetAll()
         {
-            var reparatii = await _reparatiiService.GetAllAsync();
+            var reparatii = await reparatiiService.GetAllAsync();
             return Ok(reparatii);
         }
 
@@ -30,7 +30,7 @@ namespace backend_II.Controllers
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<Reparatie>> GetById(string id)
         {
-            var reparatie = await _reparatiiService.GetByIdAsync(id);
+            var reparatie = await reparatiiService.GetByIdAsync(id);
             if (reparatie == null)
             {
                 return NotFound();
@@ -44,7 +44,7 @@ namespace backend_II.Controllers
             {
                 return BadRequest();
             }
-            await _reparatiiService.CreateAsync(reparatie);
+            await reparatiiService.CreateAsync(reparatie);
             return Ok(reparatie);
         }
 
@@ -55,24 +55,24 @@ namespace backend_II.Controllers
             {
                 return BadRequest();
             }
-            var queriedReparatie = await _reparatiiService.GetByIdAsync(id);
+            var queriedReparatie = await reparatiiService.GetByIdAsync(id);
             if (queriedReparatie == null)
             {
                 return NotFound();
             }
-            await _reparatiiService.UpdateAsync(id, updatedReparatie);
+            await reparatiiService.UpdateAsync(id, updatedReparatie);
             return NoContent();
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var reparatie = await _reparatiiService.GetByIdAsync(id);
+            var reparatie = await reparatiiService.GetByIdAsync(id);
             if (reparatie == null)
             {
                 return NotFound();
             }
-            await _reparatiiService.DeleteAsync(id);
+            await reparatiiService.DeleteAsync(id);
             return NoContent();
         }
     }

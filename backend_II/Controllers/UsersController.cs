@@ -12,23 +12,36 @@ namespace backend_II.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-        private readonly UsersService _usersService;
+        private readonly UsersService usersService;
 
         public UsersController(UsersService service)
         {
-            _usersService = service;
+            usersService = service;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("auth")]
+        public async Task<ActionResult> Login([FromBody] UserCredentials userCredentials)
+        {
+            var token = usersService.Authenticate(userCredentials.Email, userCredentials.Password);
+            if (token == null)
+                return Unauthorized();
+
+            var user = await usersService.GetByEmailAsync(userCredentials.Email);
+            return Ok(new { token, user.Id, user.post });
+       
         }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetAll()
         {
-            var users = await _usersService.GetAllAsync();
+            var users = await usersService.GetAllAsync();
             return Ok(users);
         }
         [HttpGet("{id:length(24)}")]
         public async Task<ActionResult<User>> GetById(string id)
         {
-            var user = await _usersService.GetByIdAsync(id);
+            var user = await usersService.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
@@ -43,7 +56,7 @@ namespace backend_II.Controllers
             {
                 return BadRequest();
             }
-            await _usersService.CreateAsync(user);
+            await usersService.CreateAsync(user);
             return Ok(user);
         }
 
@@ -54,24 +67,24 @@ namespace backend_II.Controllers
             {
                 return BadRequest();
             }
-            var queriedUser = await _usersService.GetByIdAsync(id);
+            var queriedUser = await usersService.GetByIdAsync(id);
             if (queriedUser == null)
             {
                 return NotFound();
             }
-            await _usersService.UpdateAsync(id, updatedUser);
+            await usersService.UpdateAsync(id, updatedUser);
             return NoContent();
         }
 
         [HttpDelete("{id:length(24)}")]
         public async Task<IActionResult> Delete(string id)
         {
-            var user = await _usersService.GetByIdAsync(id);
+            var user = await usersService.GetByIdAsync(id);
             if (user == null)
             {
                 return NotFound();
             }
-            await _usersService.DeleteAsync(id);
+            await usersService.DeleteAsync(id);
             return NoContent();
         }
     }

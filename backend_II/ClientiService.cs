@@ -2,45 +2,46 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using backend_II.Models;
+using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 
 namespace backend_II
 {
     public class ClientiService
     {
-        private readonly IMongoCollection<Client> _clienti;
+        private readonly IMongoCollection<Client> clienti;
 
-        public ClientiService(ISamsariiDatabaseSettings settings)
+        public ClientiService(IConfiguration configuration)
         {
-            var client = new MongoClient(settings.ConnectionString);
-            var database = client.GetDatabase(settings.DatabaseName);
-            _clienti = database.GetCollection<Client>(settings.ClientiCollectionName);
+            var client = new MongoClient(configuration.GetConnectionString("reprezentanta"));
+            var database = client.GetDatabase("reprezentanta");
+            clienti = database.GetCollection<Client>("clienti");
         }
 
         public async Task<List<Client>> GetAllAsync()
         {
-            return await _clienti.Find(c => true).ToListAsync();
+            return await clienti.Find(c => true).ToListAsync();
         }
 
         public async Task<Client> GetByIdAsync(string id)
         {
-            return await _clienti.Find<Client>(c => c.Id == id).FirstOrDefaultAsync();
+            return await clienti.Find<Client>(c => c.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task<Client> CreateAsync(Client client)
         {
-            await _clienti.InsertOneAsync(client);
+            await clienti.InsertOneAsync(client);
             return client;
         }
 
         public async Task UpdateAsync(string id, Client client)
         {
-            await _clienti.ReplaceOneAsync(c => c.Id == id, client);
+            await clienti.ReplaceOneAsync(c => c.Id == id, client);
         }
 
         public async Task DeleteAsync(string id)
         {
-            await _clienti.DeleteOneAsync(c => c.Id == id);
+            await clienti.DeleteOneAsync(c => c.Id == id);
         }
     }
 }

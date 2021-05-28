@@ -48,7 +48,7 @@ namespace backend_II.Controllers
             return Ok(reparatie);
         }
 
-        [HttpPut]
+        [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, Reparatie updatedReparatie)
         {
             if (!ModelState.IsValid)

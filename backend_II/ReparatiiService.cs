@@ -28,6 +28,12 @@ namespace backend_II
             return await reparatii.Find<Reparatie>(c => c.Id == id).FirstOrDefaultAsync();
         }
 
+        public async Task<List<Reparatie>> GetByUserId(string id)
+        {
+            return await reparatii.Find(c => c.clientID == id).ToListAsync();
+        }
+
+
         public async Task<Reparatie> CreateAsync(Reparatie reparatie)
         {
             await reparatii.InsertOneAsync(reparatie);

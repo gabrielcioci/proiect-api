@@ -48,6 +48,17 @@ namespace backend_II.Controllers
             return Ok(reparatie);
         }
 
+        [HttpGet("byuserid/{id:length(24)}")]
+        public async Task<ActionResult<Reparatie>> GetByUserId(string id)
+        {
+            var reparatii = await reparatiiService.GetByUserId(id);
+            if (reparatii == null)
+            {
+                return NotFound();
+            }
+            return Ok(reparatii);
+        }
+
         [HttpPut("{id:length(24)}")]
         public async Task<IActionResult> Update(string id, Reparatie updatedReparatie)
         {
